@@ -3,52 +3,56 @@ import json
 import csv
 from datetime import datetime
 
-# === Configuration ===
-SERIAL_PORT = "COM10"   # change to your central ESP32's port (e.g., COM3 on Windows, /dev/ttyUSB0 on Linux)
+# ----------------------------
+# USER CONFIGURATION
+# ----------------------------
+COM_PORT = "COM10"              # <--- Change this if needed
 BAUD_RATE = 115200
-CSV_FILE = "sensor_data.csv"
+CSV_FILE = "sensor_data.csv"    # Logs will be appended here
+# ----------------------------
 
-# === Setup CSV file (write header if new) ===
-try:
-    with open(CSV_FILE, "x", newline="") as f:  # "x" creates file if not exists
-        writer = csv.writer(f)
-        writer.writerow(["id", "temperature", "humidity", "timestamp", "datetime"])
-except FileExistsError:
-    pass  # File already exists → don’t overwrite header
+# Open serial connection
+ser = serial.Serial(COM_PORT, BAUD_RATE, timeout=1)
+print(f"Listening on {COM_PORT} at {BAUD_RATE} baud...")
 
-# === Open Serial Port ===
-ser = serial.Serial(SERIAL_PORT, BAUD_RATE, timeout=1)
-print(f"Listening on {SERIAL_PORT} at {BAUD_RATE} baud...")
+# Open CSV in append mode
+with open(CSV_FILE, "a", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames=["id", "temperature", "humidity", "datetime"])
 
-while True:
+    # If file is empty, write the header first
+    if f.tell() == 0:
+        writer.writeheader()
+
     try:
-        line = ser.readline().decode("utf-8").strip()  # read one line
-        if not line:
-            continue
+        while True:
+            line = ser.readline().decode("utf-8").strip()
+            if not line:
+                continue
 
-        # Debug: print raw line from ESP32
-        print("RAW:", line)
+            print("RAW:", line)
 
-        # ESP-IDF log prefix handling → extract JSON part only
-        if "{" not in line:
-            continue
-        json_str = line[line.index("{"):]  # extract from first '{'
+            if line.startswith("Raw Data:"):
+                try:
+                    data = json.loads(line.split("Raw Data:")[1].strip())
 
-        # Parse JSON
-        data = json.loads(json_str)
+                    # Drop "timestamp" if present
+                    data.pop("timestamp", None)
 
-        # Add human-readable datetime
-        data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    # Round values
+                    if "temperature" in data:
+                        data["temperature"] = round(float(data["temperature"]), 2)
+                    if "humidity" in data:
+                        data["humidity"] = round(float(data["humidity"]), 2)
 
-        # Append to CSV
-        with open(CSV_FILE, "a", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow([data["id"], data["temperature"], data["humidity"], data["timestamp"], data["datetime"]])
+                    # Add datetime from PC
+                    data["datetime"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        print(f"✅ Saved: {data}")
+                    # Write to CSV
+                    writer.writerow(data)
+                    f.flush()
+                    print(f"Saved: {data}")
 
-    except json.JSONDecodeError:
-        print("⚠️ Invalid JSON, skipping:", line)
+                except json.JSONDecodeError:
+                    print("Invalid JSON, skipping...")
     except KeyboardInterrupt:
-        print("\nStopping logging.")
-        break
+        print("\nLogging stopped by user.")

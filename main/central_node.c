@@ -9,7 +9,6 @@
 #include "nvs_flash.h"
 #include "cJSON.h"
 
-static const char *TAG = "CENTRAL_NODE";
 
 // ------------ ESP-NOW Receive Callback ------------
 static void on_data_recv(const esp_now_recv_info_t *recv_info, const uint8_t *data, int len) {
@@ -24,11 +23,23 @@ static void on_data_recv(const esp_now_recv_info_t *recv_info, const uint8_t *da
     int id = cJSON_GetObjectItem(root, "id")->valueint;
     float temperature = (float)cJSON_GetObjectItem(root, "temperature")->valuedouble;
     float humidity = (float)cJSON_GetObjectItem(root, "humidity")->valuedouble;
-    int timestamp = cJSON_GetObjectItem(root, "timestamp")->valueint;
 
-    printf("Node ID: %d | Temp: %.2f °C | Humidity: %.2f %% | Timestamp: %d\n",
-           id, temperature, humidity, timestamp);
+    // Print without timestamp
+    printf("Node ID: %d | Temp: %.2f °C | Humidity: %.2f %%\n",
+           id, temperature, humidity);
 
+    // Build new JSON with datetime placeholder
+    cJSON *new_root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(new_root, "id", id);
+    cJSON_AddNumberToObject(new_root, "temperature", temperature);
+    cJSON_AddNumberToObject(new_root, "humidity", humidity);
+    cJSON_AddStringToObject(new_root, "datetime", "from_logger"); // Logger will replace
+
+    char *json_str = cJSON_PrintUnformatted(new_root);
+    printf("Cleaned JSON: %s\n", json_str);
+
+    cJSON_free(json_str);
+    cJSON_Delete(new_root);
     cJSON_Delete(root);
 }
 
