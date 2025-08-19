@@ -2,32 +2,37 @@
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_system.h"
-#include "esp_log.h"
-#include "nvs_flash.h"
 #include "esp_wifi.h"
 #include "esp_now.h"
+#include "esp_system.h"
 #include "esp_event.h"
+#include "nvs_flash.h"
+#include "cJSON.h"
 
 static const char *TAG = "CENTRAL_NODE";
 
-// ------------------- ESP-NOW Callback -------------------
+// ------------ ESP-NOW Receive Callback ------------
 static void on_data_recv(const esp_now_recv_info_t *recv_info, const uint8_t *data, int len) {
-    if (len == sizeof(float)) {
-        float received_temp;
-        memcpy(&received_temp, data, sizeof(float));
+    printf("Raw Data: %.*s\n", len, data);
 
-        // Print to serial so Python script can read it
-        printf("TEMP: %.2f\n", received_temp);
-        fflush(stdout); // flush to make sure it appears immediately
-
-        ESP_LOGI(TAG, "Received Temperature: %.2f °C", received_temp);
-    } else {
-        ESP_LOGW(TAG, "Unexpected data size: %d", len);
+    cJSON *root = cJSON_Parse((char *)data);
+    if (root == NULL) {
+        printf("Failed to parse JSON\n");
+        return;
     }
+
+    int id = cJSON_GetObjectItem(root, "id")->valueint;
+    float temperature = (float)cJSON_GetObjectItem(root, "temperature")->valuedouble;
+    float humidity = (float)cJSON_GetObjectItem(root, "humidity")->valuedouble;
+    int timestamp = cJSON_GetObjectItem(root, "timestamp")->valueint;
+
+    printf("Node ID: %d | Temp: %.2f °C | Humidity: %.2f %% | Timestamp: %d\n",
+           id, temperature, humidity, timestamp);
+
+    cJSON_Delete(root);
 }
 
-// ------------------- ESP-NOW Init -------------------
+// ------------ ESP-NOW Init ------------
 static void espnow_init(void) {
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
@@ -41,10 +46,10 @@ static void espnow_init(void) {
     ESP_ERROR_CHECK(esp_now_init());
     ESP_ERROR_CHECK(esp_now_register_recv_cb(on_data_recv));
 
-    ESP_LOGI(TAG, "ESP-NOW Initialized");
+    printf("ESP-NOW Receiver Initialized\n");
 }
 
-// ------------------- Main -------------------
+// ------------ Main ------------
 void app_main(void) {
     ESP_ERROR_CHECK(nvs_flash_init());
     espnow_init();
