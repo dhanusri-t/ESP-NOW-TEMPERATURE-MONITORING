@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "espnow_central_node",
-    "project_version":    "1",
+    "project_version":    "2ca9444-dirty",
     "project_path":       "C:/Users/user/espnow_central_node",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.4.1",
     "build_dir":          "C:/Users/user/espnow_central_node/build",

@@ -1,0 +1,115 @@
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 203, in from_csv
+    res.append(PartitionDefinition.from_csv(line, line_no + 1))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 394, in from_csv
+    raise InputError("Size field can't be empty")
+gen_esp32part.InputError: Size field can't be empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 362, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 331, in main
+    target = ParttoolTarget(**target_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 95, in __init__
+    partition_table = gen.PartitionTable.from_csv(f.read())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 205, in from_csv
+    raise InputError('Error at line %d: %s\nPlease check extra_partition_subtypes.inc file in build/config directory' % (line_no + 1, err))
+gen_esp32part.InputError: Error at line 5: Size field can't be empty
+Please check extra_partition_subtypes.inc file in build/config directory
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 203, in from_csv
+    res.append(PartitionDefinition.from_csv(line, line_no + 1))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 394, in from_csv
+    raise InputError("Size field can't be empty")
+gen_esp32part.InputError: Size field can't be empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 362, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 331, in main
+    target = ParttoolTarget(**target_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 95, in __init__
+    partition_table = gen.PartitionTable.from_csv(f.read())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 205, in from_csv
+    raise InputError('Error at line %d: %s\nPlease check extra_partition_subtypes.inc file in build/config directory' % (line_no + 1, err))
+gen_esp32part.InputError: Error at line 5: Size field can't be empty
+Please check extra_partition_subtypes.inc file in build/config directory
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 203, in from_csv
+    res.append(PartitionDefinition.from_csv(line, line_no + 1))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 394, in from_csv
+    raise InputError("Size field can't be empty")
+gen_esp32part.InputError: Size field can't be empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 362, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 331, in main
+    target = ParttoolTarget(**target_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 95, in __init__
+    partition_table = gen.PartitionTable.from_csv(f.read())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 205, in from_csv
+    raise InputError('Error at line %d: %s\nPlease check extra_partition_subtypes.inc file in build/config directory' % (line_no + 1, err))
+gen_esp32part.InputError: Error at line 5: Size field can't be empty
+Please check extra_partition_subtypes.inc file in build/config directory
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 203, in from_csv
+    res.append(PartitionDefinition.from_csv(line, line_no + 1))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 394, in from_csv
+    raise InputError("Size field can't be empty")
+gen_esp32part.InputError: Size field can't be empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 362, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 331, in main
+    target = ParttoolTarget(**target_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 95, in __init__
+    partition_table = gen.PartitionTable.from_csv(f.read())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 205, in from_csv
+    raise InputError('Error at line %d: %s\nPlease check extra_partition_subtypes.inc file in build/config directory' % (line_no + 1, err))
+gen_esp32part.InputError: Error at line 5: Size field can't be empty
+Please check extra_partition_subtypes.inc file in build/config directory
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 203, in from_csv
+    res.append(PartitionDefinition.from_csv(line, line_no + 1))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 394, in from_csv
+    raise InputError("Size field can't be empty")
+gen_esp32part.InputError: Size field can't be empty
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 362, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 331, in main
+    target = ParttoolTarget(**target_args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\parttool.py", line 95, in __init__
+    partition_table = gen.PartitionTable.from_csv(f.read())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\frameworks\esp-idf-v5.4.1\components\partition_table\gen_esp32part.py", line 205, in from_csv
+    raise InputError('Error at line %d: %s\nPlease check extra_partition_subtypes.inc file in build/config directory' % (line_no + 1, err))
+gen_esp32part.InputError: Error at line 5: Size field can't be empty
+Please check extra_partition_subtypes.inc file in build/config directory
